@@ -12,32 +12,35 @@ module type Vector = sig
 
   (** {1 Vector} *)
 
-  type 'a t
+  type atom
+  (** The type of vector element. *)
+
+  type t
   (** The type of vector. *)
 
-  val length : 'a t -> int
+  val length : t -> int
   (** Length of vector. *)
 
-  val set : 'a t -> int -> 'a -> 'a t
+  val set : t -> int -> atom -> t
   (** [set v i e] updates the element at position [i] in [v] to [e].
 
       Raise [Invalid_argument "index out of bounds"]
       if [i] is outside the range 0 to [length v - 1]. *)
 
-  val get : 'a t -> int -> 'a
+  val get : t -> int -> atom
   (** [get v i] returns the element at position [i] in [v].
 
       Raise [Invalid_argument "index out of bounds"]
       if [i] is outside the range 0 to [length v - 1]. *)
 
-  val insert : 'a t -> int -> 'a -> 'a t
+  val insert : t -> int -> atom -> t
   (** [insert v i e] inserts the element [e] at position [i] in [v].
 
       Raise [Invalid_argument "index out of bounds"]
       if [i] is outside the range 0 to [length v]. *)
 
 
-  val delete : 'a t -> int -> 'a t
+  val delete : t -> int -> t
   (** [delete v i] deletes the element at position [i] in [v].
 
       Raise [Invalid_argument "index out of bounds"]
@@ -50,28 +53,35 @@ module type Mergeable_vector = sig
 
   include Vector
 
-  type 'a patch
+  type patch
   (** The type of patch. *)
 
-  val diff : 'a t -> 'a t -> 'a patch
+  val diff : t -> t -> patch
   (** [diff a b] returns a patch [p] such that [apply a p = b]. The difference
       is computed by Wagner-Fischer algorithm. O(length(a) * length(b)) time and
       space. *)
 
-  val apply : 'a t -> 'a patch -> 'a t
+  val apply : t -> patch -> t
   (** [apply a p] applies the compatibe patch [p] on [a].
 
       Raise [Invalid_argument "incompatible patch"]
       if the patch cannot be applied. *)
 
-  val merge : resolve:('a -> 'a -> 'a) -> ancestor:'a t -> 'a t -> 'a t -> 'a t
+  val merge : resolve:(atom -> atom -> atom) -> ancestor:t -> t -> t -> t
   (** [merge r a l r] performs a 3-way merge between two vectors [l] and [r],
       and their common ancestor [a]. Merge conflicts are handled by the
       [resolve] function. *)
 
 end
 
-module Make (V : Vector) : Mergeable_vector
+module Make (V : Vector) : Mergeable_vector with type atom = V.atom and type t = V.t
+
+module String : sig
+
+  (** {1 Mergeable string} *)
+
+  include Mergeable_vector with type t = string and type atom = char
+end
 
 (*---------------------------------------------------------------------------
    Copyright (c) 2017 KC Sivaramakrishnan

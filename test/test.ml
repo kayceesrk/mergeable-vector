@@ -4,6 +4,15 @@
    %%NAME%% %%VERSION%%
   ---------------------------------------------------------------------------*)
 
+open Mergeable_vector.String
+
+let main () =
+  let min_char x y = if Char.compare x y < 0 then x else y in
+  let m = merge min_char "abc" "axc" "yabc" in
+  Printf.printf "merge abc axc yabc = %s\n%!" m
+
+let _ = main ()
+
 (*---------------------------------------------------------------------------
    Copyright (c) 2017 KC Sivaramakrishnan
 

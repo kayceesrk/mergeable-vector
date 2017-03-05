@@ -2,11 +2,17 @@ mergeable-vector — Mergeable vector based on operational transformation
 -------------------------------------------------------------------------------
 %%VERSION%%
 
-mergeable-vector is TODO
+mergeable-vector is vector library with support for [3-way
+merges](https://en.wikipedia.org/wiki/Merge_(version_control)#Three-way_merge)
+based on [operational
+transformation](https://en.wikipedia.org/wiki/Operational_transformation). The
+library also provides diffing and patching arbitrary vectors. The diff is
+computed by [Wagner-Fischer
+algorithm](https://en.wikipedia.org/wiki/Wagner%E2%80%93Fischer_algorithm).
 
 mergeable-vector is distributed under the ISC license.
 
-Homepage: https://github.com/kayceesrk/mergeable-vector  
+Homepage: https://github.com/kayceesrk/mergeable-vector
 Contact: KC Sivaramakrishnan `<sk826@cl.cam.ac.uk>`
 
 ## Installation
@@ -36,4 +42,4 @@ In the distribution sample programs and tests are located in the
 [`test`](test) directory of the distribution. They can be built and run
 with:
 
-    topkg build --tests true && topkg test 
+    topkg build --tests true && topkg test

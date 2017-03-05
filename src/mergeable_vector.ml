@@ -5,30 +5,33 @@
   ---------------------------------------------------------------------------*)
 
 module type Vector = sig
-  type 'a t
-  val length : 'a t -> int
-  val set : 'a t -> int -> 'a -> 'a t
-  val get : 'a t -> int -> 'a
-  val insert : 'a t -> int -> 'a -> 'a t
-  val delete : 'a t -> int -> 'a t
+  type atom
+  type t
+  val length : t -> int
+  val set : t -> int -> atom -> t
+  val get : t -> int -> atom
+  val insert : t -> int -> atom -> t
+  val delete : t -> int -> t
 end
 
 module type Mergeable_vector = sig
   include Vector
-  type 'a patch
-  val diff : 'a t -> 'a t -> 'a patch
-  val apply : 'a t -> 'a patch -> 'a t
-  val merge : resolve:('a -> 'a -> 'a) -> ancestor:'a t -> 'a t -> 'a t -> 'a t
+  type patch
+  val diff : t -> t -> patch
+  val apply : t -> patch -> t
+  val merge : resolve:(atom -> atom -> atom) -> ancestor:t -> t -> t -> t
 end
 
-module Make (V : Vector) : Mergeable_vector = struct
+module Make (V : Vector) : Mergeable_vector
+  with type atom = V.atom
+   and type t = V.t = struct
 
-  type 'a edit =
-    | Ins of int * 'a
-    | Del of int * 'a
-    | Rep of int * 'a * 'a
+  type edit =
+    | Ins of int * V.atom
+    | Del of int * V.atom
+    | Rep of int * V.atom * V.atom
 
-  type 'a patch = 'a edit list
+  type patch = edit list
 
   let diff xs ys =
     let cache = Array.init (V.length xs+1)
@@ -156,6 +159,40 @@ module Make (V : Vector) : Mergeable_vector = struct
     apply l q'
 
   include V
+end
+
+module String = struct
+
+  module V = struct
+
+    type atom = char
+
+    type t = string
+
+    let length = String.length
+
+    let set t i a =
+      let s = Bytes.unsafe_of_string t in
+      Bytes.set s i a;
+      Bytes.unsafe_to_string s
+
+    let get = String.get
+
+    let insert t i c =
+      assert (0 <= i && i <= String.length t);
+      let left = String.sub t 0 i in
+      let right = String.sub t i (String.length t - i) in
+      String.concat "" [left; String.make 1 c; right]
+
+    let delete t i =
+      assert (0 <= i && (i + 1) <= String.length t);
+      let left = String.sub t 0 i in
+      let right = String.sub t (i + 1) (String.length t - (i + 1)) in
+      String.concat "" [left; right]
+  end
+
+  module M = Make(V)
+  include M
 end
 
 
