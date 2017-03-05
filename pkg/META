@@ -1,0 +1,7 @@
+description = "Mergeable vector based on operational transformation"
+version = "%%VERSION%%"
+requires = ""
+archive(byte) = "mergeable_vector.cma"
+archive(native) = "mergeable_vector.cmxa"
+plugin(byte) = "mergeable_vector.cma"
+plugin(native) = "mergeable_vector.cmxs"
