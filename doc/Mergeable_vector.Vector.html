@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="next" href="Mergeable_vector.Mergeable_vector.html">
+<link rel="Up" href="Mergeable_vector.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Mergeable_vector" rel="Chapter" href="Mergeable_vector.html"><link title="Vector" rel="Section" href="#1_Vector">
+<title>Mergeable_vector.Vector</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="Mergeable_vector.html" title="Mergeable_vector">Up</a>
+&nbsp;<a class="post" href="Mergeable_vector.Mergeable_vector.html" title="Mergeable_vector.Mergeable_vector">Next</a>
+</div>
+<h1>Module type <a href="type_Mergeable_vector.Vector.html">Mergeable_vector.Vector</a></h1>
+
+<pre><span class="keyword">module type</span> Vector = <code class="code"><span class="keyword">sig</span></code> <a href="Mergeable_vector.Vector.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><hr width="100%">
+<br>
+<h1 id="1_Vector">Vector</h1><br>
+
+<pre><span id="TYPEatom"><span class="keyword">type</span> <code class="type"></code>atom</span> </pre>
+<div class="info ">
+The type of vector element.<br>
+</div>
+
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info ">
+The type of vector.<br>
+</div>
+
+
+<pre><span id="VALlength"><span class="keyword">val</span> length</span> : <code class="type"><a href="Mergeable_vector.Vector.html#TYPEt">t</a> -> int</code></pre><div class="info ">
+Length of vector.<br>
+</div>
+
+<pre><span id="VALset"><span class="keyword">val</span> set</span> : <code class="type"><a href="Mergeable_vector.Vector.html#TYPEt">t</a> -><br>       int -> <a href="Mergeable_vector.Vector.html#TYPEatom">atom</a> -> <a href="Mergeable_vector.Vector.html#TYPEt">t</a></code></pre><div class="info ">
+<code class="code">set&nbsp;v&nbsp;i&nbsp;e</code> updates the element at position <code class="code">i</code> in <code class="code">v</code> to <code class="code">e</code>.
+<p>
+
+      Raise <code class="code"><span class="constructor">Invalid_argument</span>&nbsp;<span class="string">"index&nbsp;out&nbsp;of&nbsp;bounds"</span></code>
+      if <code class="code">i</code> is outside the range 0 to <code class="code">length&nbsp;v&nbsp;-&nbsp;1</code>.<br>
+</div>
+
+<pre><span id="VALget"><span class="keyword">val</span> get</span> : <code class="type"><a href="Mergeable_vector.Vector.html#TYPEt">t</a> -> int -> <a href="Mergeable_vector.Vector.html#TYPEatom">atom</a></code></pre><div class="info ">
+<code class="code">get&nbsp;v&nbsp;i</code> returns the element at position <code class="code">i</code> in <code class="code">v</code>.
+<p>
+
+      Raise <code class="code"><span class="constructor">Invalid_argument</span>&nbsp;<span class="string">"index&nbsp;out&nbsp;of&nbsp;bounds"</span></code>
+      if <code class="code">i</code> is outside the range 0 to <code class="code">length&nbsp;v&nbsp;-&nbsp;1</code>.<br>
+</div>
+
+<pre><span id="VALinsert"><span class="keyword">val</span> insert</span> : <code class="type"><a href="Mergeable_vector.Vector.html#TYPEt">t</a> -><br>       int -> <a href="Mergeable_vector.Vector.html#TYPEatom">atom</a> -> <a href="Mergeable_vector.Vector.html#TYPEt">t</a></code></pre><div class="info ">
+<code class="code">insert&nbsp;v&nbsp;i&nbsp;e</code> inserts the element <code class="code">e</code> at position <code class="code">i</code> in <code class="code">v</code>.
+<p>
+
+      Raise <code class="code"><span class="constructor">Invalid_argument</span>&nbsp;<span class="string">"index&nbsp;out&nbsp;of&nbsp;bounds"</span></code>
+      if <code class="code">i</code> is outside the range 0 to <code class="code">length&nbsp;v</code>.<br>
+</div>
+
+<pre><span id="VALdelete"><span class="keyword">val</span> delete</span> : <code class="type"><a href="Mergeable_vector.Vector.html#TYPEt">t</a> -> int -> <a href="Mergeable_vector.Vector.html#TYPEt">t</a></code></pre><div class="info ">
+<code class="code">delete&nbsp;v&nbsp;i</code> deletes the element at position <code class="code">i</code> in <code class="code">v</code>.
+<p>
+
+      Raise <code class="code"><span class="constructor">Invalid_argument</span>&nbsp;<span class="string">"index&nbsp;out&nbsp;of&nbsp;bounds"</span></code>
+      if <code class="code">i</code> is outside the range 0 to <code class="code">length&nbsp;v&nbsp;-&nbsp;1</code>.<br>
+</div>
+</body></html>
